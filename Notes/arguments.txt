@@ -1,0 +1,3 @@
+1 *args : in form of array(list in case of python) // ths takes the vaiable lenght as input like in case of c# params
+
+2 **kargs : dictionary as input type
