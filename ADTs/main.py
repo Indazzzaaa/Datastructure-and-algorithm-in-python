@@ -7,6 +7,11 @@ class ADT(list):
         self.size = length
         self.length = 0
 
+    def __init__(self, array: list):
+        self.array = array
+        self.size = len(array)
+        self.length = self.size
+
     def Display(self):
         for i in range(self.length):
             print(self.array[i], end="\t")
@@ -64,3 +69,45 @@ class ADT(list):
                 self.array[i] = temp
                 return
             self.array[i] = self.array[i+1]
+
+    def RotateRight(self, rotaion_amount: int):
+        # * in rotation from where we will start come back to that palce again
+        # * [Fromula used] : (current Index + rotation)%arraylength ,and store new index value to temp and perfom the same thing untill we reach to the place from where we have started
+        temp_index = -1
+        temp_val = -10000
+        start_index = 0
+        # emulating do while in python
+        while True:
+            if(start_index == temp_index):
+                break
+            if temp_index == -1:
+
+                temp_index = (start_index+rotaion_amount) % self.size
+                temp_val = self.array[temp_index]
+                self.array[temp_index] = self.array[start_index]
+            else:
+                temp_index = (temp_index+rotaion_amount) % self.size
+                temp = self.array[temp_index]
+                self.array[temp_index] = temp_val
+                temp_val = temp
+
+        self.Display()  # show the result
+
+    def NegativePositiveSeprator(self):
+        ptr_i = 0
+        ptr_j = self.size-1
+        while True:
+            if ptr_i == ptr_j or ptr_i >= self.size or ptr_j <= 0:
+                break
+            if self.array[ptr_i] < 0:
+                ptr_i += 1
+            if self.array[ptr_j] >= 0:
+                ptr_j -= 1
+
+            if self.array[ptr_i] >= 0 and self.array[ptr_j] < 0:
+                temp = self.array[ptr_i]
+                self.array[ptr_i] = self.array[ptr_j]
+                self.array[ptr_j] = temp
+                ptr_i += 1
+                ptr_j -= 1
+        self.Display()
